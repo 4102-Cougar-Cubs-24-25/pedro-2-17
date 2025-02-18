@@ -23,11 +23,13 @@ public class noRizzAutonGen extends OpMode{
     private PathChain line1, line2, line3, line4, line5, line6, line7;
     //todo: add as many lines as are used in the path
     public void buildPaths(){
-        /* todo: from the visualizer https://visualizer.pedropathing.com/,
-        *   copy and paste the generated code,
-        *   starting from "public static PathBuilder builder = new PathBuilder();".
-        *   do not include the first line "public class GeneratedPaths {"
-        *   or the last bracket at the end of the generated code.*/
+        line1 = GeneratedPaths.line1;
+        line2 = GeneratedPaths.line2;
+        line3 = GeneratedPaths.line3;
+        line4 = GeneratedPaths.line4;
+        line5 = GeneratedPaths.line5;
+        line6 = GeneratedPaths.line6;
+        line7 = GeneratedPaths.line7;
     }
     public void autonomousPathUpdate() {
         switch (pathState) {
@@ -53,7 +55,6 @@ public class noRizzAutonGen extends OpMode{
                     setPathState(4);
                 }
                 break;
-
             case 4:
                 if (!follower.isBusy()) {
                     follower.followPath(line5, true);
