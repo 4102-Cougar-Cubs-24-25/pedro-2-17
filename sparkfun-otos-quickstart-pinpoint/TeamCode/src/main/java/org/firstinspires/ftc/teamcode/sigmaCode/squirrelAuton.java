@@ -8,6 +8,7 @@ import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.ProfileAccelConstraint;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.Trajectory;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.TranslationalVelConstraint;
@@ -39,16 +40,16 @@ public class squirrelAuton extends LinearOpMode{
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 if (!on) {
-                    vSlide.setTargetPosition(2350);
+                    vSlide.setTargetPosition(2270);
                     vSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    vSlide.setPower(-0.9);
+                    vSlide.setPower(-1);
                     on = true;
                 }
                 telemetry.addData("slides",vSlide.getCurrentPosition());
                 telemetry.update();
                 double pos = vSlide.getCurrentPosition();
                 packet.put("liftPos", pos);
-                if (vSlide.getCurrentPosition() < 2350) {
+                if (vSlide.getCurrentPosition() < 2270) {
                     // true causes the action to rerun
                     return true;
                 } else {
@@ -65,16 +66,16 @@ public class squirrelAuton extends LinearOpMode{
             public boolean run(@NonNull TelemetryPacket packet) {
                 if (!on) {
                     vSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    vSlide.setTargetPosition(1700);
+                    vSlide.setTargetPosition(1830);
                     vSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    vSlide.setPower(-0.9);
+                    vSlide.setPower(-1);
                     on = true;
                 }
                 telemetry.addData("slides",vSlide.getCurrentPosition());
                 telemetry.update();
                 double pos = vSlide.getCurrentPosition();
                 packet.put("liftPos", pos);
-                if (vSlide.getCurrentPosition() < 1700) {
+                if (vSlide.getCurrentPosition() < 1830) {
                     // true causes the action to rerun
                     return true;
                 } else {
@@ -92,16 +93,16 @@ public class squirrelAuton extends LinearOpMode{
             public boolean run(@NonNull TelemetryPacket packet) {
                 if (!on) {
                     vSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    vSlide.setTargetPosition(-2350);
+                    vSlide.setTargetPosition(-2270);
                     vSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    vSlide.setPower(0.7);
+                    vSlide.setPower(1);
                     on = true;
                 }
                 telemetry.addData("slides",vSlide.getCurrentPosition());
                 telemetry.update();
                 double pos = vSlide.getCurrentPosition();
                 packet.put("liftPos", pos);
-                if (vSlide.getCurrentPosition() > -2350) {
+                if (vSlide.getCurrentPosition() > -2270) {
                     // true causes the action to rerun
                     return true;
                 } else {
@@ -211,50 +212,58 @@ public class squirrelAuton extends LinearOpMode{
         Actions.runBlocking(hWrist.wristUp());
 
         TrajectoryActionBuilder scorePreload = drive.actionBuilder(initialPose)
-                .strafeTo(new Vector2d(11,-34));
+                .strafeTo(new Vector2d(11,-31));
         //preload scored
-        TrajectoryActionBuilder pushSamples = drive.actionBuilder(new Pose2d(11,-31, Math.toRadians(90)))
-                .strafeTo(new Vector2d(11,-41))
-                .strafeTo(new Vector2d(33, -41))
-                .splineToConstantHeading(new Vector2d(44, -18),Math.toRadians(90))
-                .strafeTo(new Vector2d(48,-18))
-                .strafeTo(new Vector2d(48,-58))
+        TrajectoryActionBuilder pushSamples = drive.actionBuilder(initialPose)
+                //.strafeTo(new Vector2d(11,-41))
+                //.strafeTo(new Vector2d(33, -41))
+                .splineToConstantHeading(new Vector2d(40,-40), Math.toRadians(90))
+                .splineToConstantHeading(new Vector2d(42, -18), Math.toRadians(180))
+                //ready to push
+                .strafeTo(new Vector2d(44,-18))
+                //.strafeTo(new Vector2d(50,-58))
+                .splineToConstantHeading(new Vector2d(50, -58), Math.toRadians(30))
                 //1 sample in human player zone
-                .strafeTo(new Vector2d(48,-18))
-                .strafeTo(new Vector2d(60, -18))
-                .strafeTo(new Vector2d(60, -58))
+                //.splineToConstantHeading(new Vector2d(50,-18), Math.toRadians(90))
+                .strafeTo(new Vector2d(55,-18))
+                //.splineToConstantHeading(new Vector2d(54, -18), Math.toRadians(90))
+                //.strafeTo(new Vector2d(60, -18))
+                .splineToConstantHeading(new Vector2d(64, -48), Math.toRadians(90))
                 //2 samples in human player zone
-                .strafeTo(new Vector2d(60, -52))
+                //.strafeTo(new Vector2d(60, -52))
                 //wait for human player
-                .waitSeconds(.25)
-                .strafeTo(new Vector2d(60, -68));
-        TrajectoryActionBuilder spec2 = drive.actionBuilder(new Pose2d(60, -68, Math.toRadians(90)))
+                //.waitSeconds(.25)
+                //.strafeTo(new Vector2d(60, -68))
+                .splineToConstantHeading(new Vector2d(44, -67), Math.toRadians(90));
+        TrajectoryActionBuilder spec2 = drive.actionBuilder(new Pose2d(44, -67, Math.toRadians(90)))
                 //spec 2 picked up
-                .splineToConstantHeading(new Vector2d(-1, -32), Math.toRadians(90), new TranslationalVelConstraint(60), new ProfileAccelConstraint(-35, 60));
+                .splineToConstantHeading(new Vector2d(3, -31), Math.toRadians(90), new TranslationalVelConstraint(60), new ProfileAccelConstraint(-35, 60));
         //spec 2 scored
-        TrajectoryActionBuilder spec2scored = drive.actionBuilder(new Pose2d(-1, -32, Math.toRadians(90)))
-                .strafeTo(new Vector2d(-1, -36))
-                .splineToConstantHeading(new Vector2d(52, -45), Math.toRadians(270), new TranslationalVelConstraint(60), new ProfileAccelConstraint(-35, 60))
-                .strafeTo(new Vector2d(52, -68));
-        TrajectoryActionBuilder spec3 = drive.actionBuilder(new Pose2d(52, -68, Math.toRadians(90)))
+        TrajectoryActionBuilder spec2scored = drive.actionBuilder(new Pose2d(3, -31, Math.toRadians(90)))
+                .strafeTo(new Vector2d(3, -36))
+                .splineToConstantHeading(new Vector2d(44, -45), Math.toRadians(270), new TranslationalVelConstraint(60), new ProfileAccelConstraint(-35, 60))
+                .strafeTo(new Vector2d(44, -68));
+        TrajectoryActionBuilder spec3 = drive.actionBuilder(new Pose2d(44, -68, Math.toRadians(90)))
                 //spec 3 picked up
-                .splineToConstantHeading(new Vector2d(7, -34.5), Math.toRadians(90), new TranslationalVelConstraint(60), new ProfileAccelConstraint(-35, 60));
+                .splineToConstantHeading(new Vector2d(7, -31), Math.toRadians(90), new TranslationalVelConstraint(60), new ProfileAccelConstraint(-35, 60));
         //spec 3 scored
-        TrajectoryActionBuilder spec3scored = drive.actionBuilder(new Pose2d(7, -34.5, Math.toRadians(90)))
+        TrajectoryActionBuilder spec3scored = drive.actionBuilder(new Pose2d(7, -31, Math.toRadians(90)))
                 .strafeTo(new Vector2d(7, -41))
-                .splineToConstantHeading(new Vector2d(52, -66), Math.toRadians(270), new TranslationalVelConstraint(60), new ProfileAccelConstraint(-35, 60));
-        TrajectoryActionBuilder spec4 = drive.actionBuilder(new Pose2d(52, -66, Math.toRadians(90)))
+                .splineToConstantHeading(new Vector2d(44, -67), Math.toRadians(270), new TranslationalVelConstraint(60), new ProfileAccelConstraint(-35, 60));
+        TrajectoryActionBuilder spec4 = drive.actionBuilder(new Pose2d(44, -67, Math.toRadians(90)))
                 //spec 4 picked up
-                .splineToConstantHeading(new Vector2d(3, -37), Math.toRadians(90), new TranslationalVelConstraint(60), new ProfileAccelConstraint(-35, 60));
+                .splineToConstantHeading(new Vector2d(-1, -31), Math.toRadians(90), new TranslationalVelConstraint(60), new ProfileAccelConstraint(-35, 60));
         //spec 4 scored
-        TrajectoryActionBuilder spec4scored = drive.actionBuilder(new Pose2d(3, -37, Math.toRadians(90)))
-                .strafeTo(new Vector2d(3, -41))
-                .splineToConstantHeading(new Vector2d(52, -66), Math.toRadians(270), new TranslationalVelConstraint(60), new ProfileAccelConstraint(-35, 60));
+        TrajectoryActionBuilder spec4scored = drive.actionBuilder(new Pose2d(-1, -31, Math.toRadians(90)))
+                .strafeTo(new Vector2d(-1, -41))
+                .splineToConstantHeading(new Vector2d(44, -66), Math.toRadians(270), new TranslationalVelConstraint(60), new ProfileAccelConstraint(-35, 60));
         //parked
-        TrajectoryActionBuilder wait = drive.actionBuilder(new Pose2d(52, -66, Math.toRadians(90)))
+        TrajectoryActionBuilder wait = drive.actionBuilder(new Pose2d(44, -66, Math.toRadians(90)))
                 .waitSeconds(1);
         TrajectoryActionBuilder waitLess = drive.actionBuilder(new Pose2d(52, -66, Math.toRadians(90)))
                 .waitSeconds(.5);
+        TrajectoryActionBuilder waitMore = drive.actionBuilder(new Pose2d(44, -66, Math.toRadians(90)))
+                .waitSeconds(1.5);
 
 
         //steps: scorePreload, pushSamples, spec2, spec2scored, spec3, spec3scored, spec4, spec4scored
@@ -269,6 +278,7 @@ public class squirrelAuton extends LinearOpMode{
         Action s4score = spec4scored.build();
         Action w = wait.build();
         Action wl = waitLess.build();
+        Action wm = waitMore.build();
         Actions.runBlocking(
                 new SequentialAction(
                         new ParallelAction(
@@ -282,7 +292,10 @@ public class squirrelAuton extends LinearOpMode{
                                 vClaw.openClaw(),
                                 vWrist.wristBack()
                         ),
-                        vClaw.closeClaw(), wl,
+                        new ParallelAction(
+                                vClaw.closeClaw(),
+                                new SleepAction(.4)
+                        ),
                         new ParallelAction(
                                 vSlide.slidesUpHalf(),
                                 s2pick,
@@ -296,8 +309,8 @@ public class squirrelAuton extends LinearOpMode{
                                 vWrist.wristBack()
                         ),
                         new ParallelAction(
-                          vClaw.closeClaw(),
-                          w
+                                vClaw.closeClaw(),
+                                new SleepAction(.4)
                         ),
                         new ParallelAction(
                                 vSlide.slidesUpHalf(),
@@ -311,19 +324,22 @@ public class squirrelAuton extends LinearOpMode{
                                 s3score,
                                 vWrist.wristBack()
                         ),
-                        w, vClaw.closeClaw(), w,
+                        new ParallelAction(
+                                vClaw.closeClaw(),
+                                new SleepAction(.4)
+                        ),
                         new ParallelAction(
                                 vSlide.slidesUpHalf(),
                                 s4pick,
                                 vWrist.wristForward()
                         ),
-                        vSlide.slidesUp(),
-                        new ParallelAction(
+                        vSlide.slidesUp()
+                        /*new ParallelAction(
                                 vSlide.slidesDown(),
                                 vClaw.openClaw(),
-                                //s4score,
+                                s4score,
                                 vWrist.wristBack()
-                        )
+                        )*/
                 )
         );
     }

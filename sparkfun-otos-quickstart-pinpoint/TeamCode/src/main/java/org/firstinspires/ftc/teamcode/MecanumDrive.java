@@ -58,25 +58,24 @@ public class MecanumDrive {
         // TODO: fill in these values based on
         //   see https://ftc-docs.firstinspires.org/en/latest/programming_resources/imu/imu.html?highlight=imu#physical-hub-mounting
         public RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection =
-                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
+                RevHubOrientationOnRobot.LogoFacingDirection.LEFT;
         public RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection =
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+                RevHubOrientationOnRobot.UsbFacingDirection.DOWN;
 
         // drive model parameters
         public double inPerTick = 1; // If you're using OTOS/Pinpoint leave this at 1 (all values will be in inches, 1 tick = 1 inch)
-        public double lateralInPerTick = 0.7242891776096395; // Tune this with LateralRampLogger (even if you use OTOS/Pinpoint)
-        public double trackWidthTicks = 11.391871779798034;
+        public double lateralInPerTick = 0.662952382174237; // Tune this with LateralRampLogger (even if you use OTOS/Pinpoint)
+        public double trackWidthTicks = 11.80196324568484;
 
         // feedforward parameters (in tick units)
-        public double kS = 1.0785760773501951;
-        public double kV = 0.2084717944679911;
-        public double kA = 0.02;
+        public double kS = 1.145501472970393;
+        public double kV = 0.14249862404438007;
+        public double kA = .03;
 
         // path profile parameters (in inches)
-        //max 95
-        public double maxWheelVel = 85;
-        public double minProfileAccel = -25;
-        public double maxProfileAccel = 85;
+        public double maxWheelVel = 125;
+        public double minProfileAccel = -35;
+        public double maxProfileAccel = 125;
 
         // turn profile parameters (in radians)
         public double maxAngVel = Math.PI; // shared with path
@@ -84,7 +83,7 @@ public class MecanumDrive {
 
         // path controller gains
         public double axialGain = 8;
-        public double lateralGain = 8;
+        public double lateralGain = 7;
         public double headingGain = 11; // shared with turn
 
         public double axialVelGain = 0.0;

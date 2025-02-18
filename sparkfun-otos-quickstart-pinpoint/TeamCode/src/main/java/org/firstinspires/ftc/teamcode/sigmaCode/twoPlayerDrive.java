@@ -81,6 +81,7 @@ public class twoPlayerDrive extends LinearOpMode{
             telemetry.addData("rizz (lf)", leftFront.getCurrentPosition());
             telemetry.addData("aura (h)", hClawOpen);
             telemetry.addData("fein (v)", vClaw.getPosition());
+            telemetry.addData("huzz (vs)", vSlide.getCurrentPosition());
 
             telemetry.update();
 
@@ -92,10 +93,10 @@ public class twoPlayerDrive extends LinearOpMode{
             double rx = gamepad1.right_stick_x;
             double div = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
 
-            leftFront.setPower(Math.pow((y + x - (rx*.85)),3)/div);
-            leftBack.setPower(Math.pow((y - x + (rx*.85)),3)/div);
-            rightFront.setPower(Math.pow((y - x - (rx*.85)),3)/div);
-            rightBack.setPower(Math.pow((y + x + (rx*.85)),3)/div);
+            leftFront.setPower(Math.pow((y + x - (rx*.85)),5)/div);
+            leftBack.setPower(Math.pow((y - x + (rx*.85)),5)/div);
+            rightFront.setPower(Math.pow((y - x - (rx*.85)),5)/div);
+            rightBack.setPower(Math.pow((y + x + (rx*.85)),5)/div);
 
             if(gamepad2.right_trigger > 0){
                 vSlide.setPower(-0.9);
