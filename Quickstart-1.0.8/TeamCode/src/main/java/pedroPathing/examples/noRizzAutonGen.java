@@ -22,14 +22,11 @@ public class noRizzAutonGen extends OpMode{
     //todo: change above value to desired starting pose
     private PathChain line1, line2, line3, line4, line5, line6, line7;
     //todo: add as many lines as are used in the path
+    //todo: go to GeneratedPaths file
     public void buildPaths(){
         line1 = GeneratedPaths.line1;
         line2 = GeneratedPaths.line2;
-        line3 = GeneratedPaths.line3;
-        line4 = GeneratedPaths.line4;
-        line5 = GeneratedPaths.line5;
-        line6 = GeneratedPaths.line6;
-        line7 = GeneratedPaths.line7;
+        //todo: add more lines
     }
     public void autonomousPathUpdate() {
         switch (pathState) {

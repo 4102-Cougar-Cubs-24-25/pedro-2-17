@@ -6,6 +6,7 @@ import com.pedropathing.pathgen.PathBuilder;
 import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 
+//todo: replace below with generated code from the visualizer, and separate lines
 public class GeneratedPaths {
     public static PathBuilder builder = new PathBuilder();
 
