@@ -30,7 +30,7 @@ public class noRizzAutonGen extends OpMode{
                 follower.followPath(line1);
                 /*todo: implement actions after each line
                 *  example: action.slidesUpHalf() or action.closeClaw()
-                *  tip: look at AuraliciousActions class to see action methods*/
+                *  see AuraliciousActions class to see action methods*/
                 setPathState(1);
                 break;
             case 1:
