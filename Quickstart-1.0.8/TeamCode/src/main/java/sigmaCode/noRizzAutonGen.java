@@ -1,12 +1,7 @@
-package pedroPathing.examples;
+package sigmaCode;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
-import com.pedropathing.pathgen.BezierCurve;
-import com.pedropathing.pathgen.BezierLine;
-import com.pedropathing.pathgen.Path;
-import com.pedropathing.pathgen.PathBuilder;
 import com.pedropathing.pathgen.PathChain;
-import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -18,11 +13,12 @@ public class noRizzAutonGen extends OpMode{
     private Timer pathTimer, actionTimer, opmodeTimer;
     private Follower follower;
     private int pathState;
+    private AuraliciousActions action = new AuraliciousActions(hardwareMap, telemetry);
     private final Pose startPose = new Pose(7, 65, Math.toRadians(0));
     //todo: change above value to desired starting pose
     private PathChain line1, line2, line3, line4, line5, line6, line7;
     //todo: add as many lines as are used in the path
-    //todo: go to GeneratedPaths file
+    //todo: go to GeneratedPaths class
     public void buildPaths(){
         line1 = GeneratedPaths.line1;
         line2 = GeneratedPaths.line2;
@@ -32,6 +28,9 @@ public class noRizzAutonGen extends OpMode{
         switch (pathState) {
             case 0:
                 follower.followPath(line1);
+                /*todo: implement actions after each line
+                *  example: action.slidesUpHalf() or action.closeClaw()
+                *  tip: look at AuraliciousActions class to see action methods*/
                 setPathState(1);
                 break;
             case 1:

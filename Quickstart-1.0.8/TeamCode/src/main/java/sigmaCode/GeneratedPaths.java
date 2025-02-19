@@ -1,4 +1,4 @@
-package pedroPathing.examples;
+package sigmaCode;
 
 import com.pedropathing.pathgen.BezierCurve;
 import com.pedropathing.pathgen.BezierLine;
