@@ -25,9 +25,12 @@ public class TwoPlayerDrive extends LinearOpMode{
     private Servo vClaw;
     private Servo hClaw;
     private Servo clawSpinner;
+    private Servo sampleclaw;
     private IMU imu;
     private boolean hClawOpen = false;
     private boolean vClawOpen = false;
+
+    private boolean sampleclawOpen = false;
     private boolean spin = false;
 
     public void runOpMode() throws InterruptedException {
@@ -44,6 +47,7 @@ public class TwoPlayerDrive extends LinearOpMode{
         rhWrist = hardwareMap.servo.get("rhWrist");
         hClaw = hardwareMap.servo.get("hClaw");
         vClaw = hardwareMap.servo.get("vClaw");
+        sampleclaw = hardwareMap.servo.get("sClaw");
         clawSpinner = hardwareMap.servo.get("clawSpinner");
         imu = hardwareMap.get(IMU.class, "imu");
 
@@ -118,11 +122,11 @@ public class TwoPlayerDrive extends LinearOpMode{
 
             if(gamepad2.dpad_right){
                 rhWrist.setPosition(0);
-                lhWrist.setPosition(.35);
+                lhWrist.setPosition(.7);
             }
 
             if(gamepad2.dpad_left){
-                rhWrist.setPosition(.35);
+                rhWrist.setPosition(.7);
                 lhWrist.setPosition(0);
             }
 
@@ -147,6 +151,16 @@ public class TwoPlayerDrive extends LinearOpMode{
                 }
             }
 
+            if(karelNow.a && !karel.a){
+                sampleclawOpen = !sampleclawOpen;
+            }
+            if(gamepad2.a) {
+                if (sampleclawOpen) {
+                    sampleclaw.setPosition(.8);
+                } else if (!sampleclawOpen) {
+                    sampleclaw.setPosition(0);
+                }
+            }
             if(karelNow.y && !karel.y){
                 spin = !spin;
             }
