@@ -81,31 +81,31 @@ public class noRizzAutonGen extends OpMode {
             case 7:
                 if (!follower.isBusy()) {
                     follower.followPath(line8, true);
-                    setPathState(7);
+                    setPathState(8);
                 }
                 break;
             case 8:
                 if (!follower.isBusy()) {
                     follower.followPath(line9, true);
-                    setPathState(7);
+                    setPathState(9);
                 }
                 break;
             case 9:
                 if (!follower.isBusy()) {
                     follower.followPath(line10, true);
-                    setPathState(7);
+                    setPathState(10);
                 }
                 break;
             case 10:
                 if (!follower.isBusy()) {
                     follower.followPath(line11, true);
-                    setPathState(7);
+                    setPathState(11);
                 }
                 break;
             case 11:
                 if (!follower.isBusy()) {
                     follower.followPath(line12, true);
-                    setPathState(7);
+                    setPathState(12);
                 }
                 break;
             case 12:
