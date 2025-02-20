@@ -6,6 +6,11 @@ import com.pedropathing.util.Constants;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
+
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 @Autonomous(name = "pedro generated auto", group = "Examples")
@@ -13,6 +18,12 @@ public class noRizzAutonGen extends OpMode {
     private Timer pathTimer, actionTimer, opmodeTimer;
     private Follower follower;
     private int pathState;
+    private DcMotorEx vSlide;
+    private Servo rhWrist;
+    private Servo lhWrist;
+    private Servo rvWrist;
+    private Servo lvWrist;
+    private Servo vClaw;
  //   private AuraliciousActions action = new AuraliciousActions(hardwareMap, telemetry);
     private final Pose startPose = new Pose(7.2, 63, Math.toRadians(0));
     //todo: change above value to desired starting pose
