@@ -122,11 +122,11 @@ public class TwoPlayerDrive extends LinearOpMode{
 
             if(gamepad2.dpad_right){
                 rhWrist.setPosition(0);
-                lhWrist.setPosition(.7);
+                lhWrist.setPosition(.35);
             }
 
             if(gamepad2.dpad_left){
-                rhWrist.setPosition(.7);
+                rhWrist.setPosition(.35);
                 lhWrist.setPosition(0);
             }
 
