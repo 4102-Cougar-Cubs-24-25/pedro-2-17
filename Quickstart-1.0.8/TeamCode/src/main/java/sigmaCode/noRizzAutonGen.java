@@ -9,28 +9,37 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 @Autonomous(name = "pedro generated auto", group = "Examples")
-public class noRizzAutonGen extends OpMode{
+public class noRizzAutonGen extends OpMode {
     private Timer pathTimer, actionTimer, opmodeTimer;
     private Follower follower;
     private int pathState;
     private AuraliciousActions action = new AuraliciousActions(hardwareMap, telemetry);
     private final Pose startPose = new Pose(7, 65, Math.toRadians(0));
     //todo: change above value to desired starting pose
-    private PathChain line1, line2, line3, line4, line5, line6, line7;
+    private PathChain line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11, line12;
+
     //todo: add as many lines as are used in the path
-    //todo: go to GeneratedPaths class
-    public void buildPaths(){
+    //todo: go to GeneratedPaths file
+    public void buildPaths() {
         line1 = GeneratedPaths.line1;
         line2 = GeneratedPaths.line2;
+        line3 = GeneratedPaths.line3;
+        line4 = GeneratedPaths.line4;
+        line5 = GeneratedPaths.line5;
+        line6 = GeneratedPaths.line6;
+        line7 = GeneratedPaths.line7;
+        line8 = GeneratedPaths.line8;
+        line9 = GeneratedPaths.line9;
+        line10 = GeneratedPaths.line10;
+        line11 = GeneratedPaths.line11;
+        line12 = GeneratedPaths.line12;
         //todo: add more lines
     }
+
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
                 follower.followPath(line1);
-                /*todo: implement actions after each line
-                *  example: action.slidesUpHalf() or action.closeClaw()
-                *  see AuraliciousActions class to see action methods*/
                 setPathState(1);
                 break;
             case 1:
@@ -70,16 +79,47 @@ public class noRizzAutonGen extends OpMode{
                 }
                 break;
             case 7:
-                if(!follower.isBusy()) {
+                if (!follower.isBusy()) {
+                    follower.followPath(line8, true);
+                    setPathState(7);
+                }
+                break;
+            case 8:
+                if (!follower.isBusy()) {
+                    follower.followPath(line9, true);
+                    setPathState(7);
+                }
+                break;
+            case 9:
+                if (!follower.isBusy()) {
+                    follower.followPath(line10, true);
+                    setPathState(7);
+                }
+                break;
+            case 10:
+                if (!follower.isBusy()) {
+                    follower.followPath(line11, true);
+                    setPathState(7);
+                }
+                break;
+            case 11:
+                if (!follower.isBusy()) {
+                    follower.followPath(line12, true);
+                    setPathState(7);
+                }
+                break;
+            case 12:
+                if (!follower.isBusy()) {
                     setPathState(-1);
                 }
                 break;
             /* todo: if you are using more than 7 lines,
-            *   modify this method to include more cases,
-            *   but make sure the last case has no path
-            *   and sets the path state to -1.*/
+             *   modify this method to include more cases,
+             *   but make sure the last case has no path
+             *   and sets the path state to -1.*/
         }
     }
+
     public void setPathState(int pState) {
         pathState = pState;
         pathTimer.resetTimer();
