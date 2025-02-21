@@ -17,7 +17,7 @@ public class RVWrist extends Subsystem {
         return new ServoToPosition(rvWrist, 0.66, this);
     }
     public void initialize() {
-        rvWrist = OpModeData.INSTANCE.getHardwareMap().get(Servo.class, "rvClaw");
+        rvWrist = OpModeData.INSTANCE.getHardwareMap().get(Servo.class, "rvWrist");
     }
 
 }

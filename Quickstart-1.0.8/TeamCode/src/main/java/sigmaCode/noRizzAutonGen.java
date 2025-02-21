@@ -20,9 +20,6 @@ import sigmaCode.sigmaSubsystems.VerticalClaw;
 
 @Autonomous(name = "pedro generated auto", group = "Examples")
 public class noRizzAutonGen extends PedroOpMode {
-    private Timer pathTimer, actionTimer, opmodeTimer;
-    private Follower follower;
-    private int pathState;
     private final Pose startPose = new Pose(7.2, 63, Math.toRadians(0));
     //todo: change above value to desired starting pose
     private PathChain line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11, line12, line13;
@@ -64,7 +61,6 @@ public class noRizzAutonGen extends PedroOpMode {
     }
     public void onInit() {
         VerticalClaw.INSTANCE.close();
-        pathTimer = new Timer();
         Constants.setConstants(FConstants.class, LConstants.class);
         follower = new Follower(hardwareMap);
         follower.setStartingPose(startPose);
@@ -74,9 +70,6 @@ public class noRizzAutonGen extends PedroOpMode {
     public void onStartButtonPressed() {
         sigmaAuto().invoke();
 
-        telemetry.addData("Path State", pathState);
-        telemetry.addData("Position", follower.getPose().toString());
-        telemetry.update();
     }
 
 
