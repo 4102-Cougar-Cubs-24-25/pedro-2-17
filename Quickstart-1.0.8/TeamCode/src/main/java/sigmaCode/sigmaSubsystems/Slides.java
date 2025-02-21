@@ -6,7 +6,6 @@ import com.rowanmcalpin.nextftc.core.control.coefficients.PIDCoefficients;
 import com.rowanmcalpin.nextftc.core.control.controllers.PIDFController;
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.MotorEx;
 import com.rowanmcalpin.nextftc.ftc.hardware.controllables.RunToPosition;
-
 public class Slides extends Subsystem {
     public static final Slides INSTANCE = new Slides();
     public MotorEx lift;
@@ -21,6 +20,7 @@ public class Slides extends Subsystem {
     public Command half(){
         return new RunToPosition(lift, 1200, controller, this);
     }
+    @Override
     public void initialize(){
         lift = new MotorEx("vSlide");
     }

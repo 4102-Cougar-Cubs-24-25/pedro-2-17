@@ -13,6 +13,7 @@ import com.rowanmcalpin.nextftc.pedro.PedroOpMode;
 
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
+import sigmaCode.sigmaSubsystems.Claw;
 import sigmaCode.sigmaSubsystems.LVWrist;
 import sigmaCode.sigmaSubsystems.RVWrist;
 import sigmaCode.sigmaSubsystems.Slides;
@@ -20,6 +21,9 @@ import sigmaCode.sigmaSubsystems.VerticalClaw;
 
 @Autonomous(name = "pedro generated auto", group = "Examples")
 public class noRizzAutonGen extends PedroOpMode {
+    public noRizzAutonGen() {
+        super(Slides.INSTANCE, Claw.INSTANCE, LVWrist.INSTANCE, RVWrist.INSTANCE);
+    }
     private final Pose startPose = new Pose(7.2, 63, Math.toRadians(0));
     //todo: change above value to desired starting pose
     private PathChain line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11, line12, line13;
@@ -41,9 +45,6 @@ public class noRizzAutonGen extends PedroOpMode {
         line12 = GeneratedPaths.line12;
         line13 = GeneratedPaths.line13;
     }
-    public noRizzAutonGen() {
-        super(Slides.INSTANCE, VerticalClaw.INSTANCE, LVWrist.INSTANCE, RVWrist.INSTANCE);
-    }
     public Command sigmaAuto(){
         return new SequentialGroup(
                 new ParallelGroup(
@@ -53,14 +54,15 @@ public class noRizzAutonGen extends PedroOpMode {
                 new ParallelGroup(
                         Slides.INSTANCE.down(),
                         new FollowPath(line2),
-                        VerticalClaw.INSTANCE.open(),
+                        Claw.INSTANCE.open(),
                         LVWrist.INSTANCE.wristBack(),
                         RVWrist.INSTANCE.wristBack()
                 ), new FollowPath(line3)
         );
     }
+    @Override
     public void onInit() {
-        VerticalClaw.INSTANCE.close();
+        Claw.INSTANCE.close();
         Constants.setConstants(FConstants.class, LConstants.class);
         follower = new Follower(hardwareMap);
         follower.setStartingPose(startPose);

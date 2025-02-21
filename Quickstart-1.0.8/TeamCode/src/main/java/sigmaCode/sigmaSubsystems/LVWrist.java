@@ -16,6 +16,7 @@ public class LVWrist extends Subsystem {
     public Command wristForward() {
         return new ServoToPosition(lvWrist, 0.66, this);
     }
+    @Override
     public void initialize() {
         lvWrist = OpModeData.INSTANCE.getHardwareMap().get(Servo.class, "lvWrist");
     }
