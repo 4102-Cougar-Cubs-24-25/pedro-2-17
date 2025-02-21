@@ -30,10 +30,10 @@ public class AuraliciousActions {
 
     public void slidesUpHalf(){
         vSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        vSlide.setTargetPosition(1830);
+        vSlide.setTargetPosition(1200);
         vSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         vSlide.setPower(-1);
-        while(vSlide.getCurrentPosition() < 1830){
+        while(vSlide.getCurrentPosition() < 1200){
             telemetry.addData("slides",vSlide.getCurrentPosition());
             telemetry.update();
         }
@@ -42,10 +42,10 @@ public class AuraliciousActions {
     }
 
     public void slidesUp(){
-        vSlide.setTargetPosition(2270);
+        vSlide.setTargetPosition(1500);
         vSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         vSlide.setPower(-1);
-        while(vSlide.getCurrentPosition() < 2270){
+        while(vSlide.getCurrentPosition() < 1500){
             telemetry.addData("slides",vSlide.getCurrentPosition());
             telemetry.update();
         }
@@ -55,10 +55,10 @@ public class AuraliciousActions {
 
     public void slidesDown(){
         vSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        vSlide.setTargetPosition(-2270);
+        vSlide.setTargetPosition(-1500);
         vSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         vSlide.setPower(1);
-        while(vSlide.getCurrentPosition() > -2270){
+        while(vSlide.getCurrentPosition() > -1500){
             telemetry.addData("slides",vSlide.getCurrentPosition());
             telemetry.update();
         }
