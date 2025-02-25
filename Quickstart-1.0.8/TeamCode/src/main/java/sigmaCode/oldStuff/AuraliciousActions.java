@@ -1,4 +1,4 @@
-package sigmaCode;
+package sigmaCode.oldStuff;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -9,11 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class AuraliciousActions {
     private DcMotorEx vSlide;
-    private Servo rhWrist;
-    private Servo lhWrist;
-    private Servo rvWrist;
-    private Servo lvWrist;
-    private Servo vClaw;
+    private Servo rhWrist, lhWrist, rvWrist, lvWrist, vClaw;
     private Telemetry telemetry;
     public AuraliciousActions(HardwareMap hardwareMap, Telemetry telemetry){
         this.telemetry = telemetry;

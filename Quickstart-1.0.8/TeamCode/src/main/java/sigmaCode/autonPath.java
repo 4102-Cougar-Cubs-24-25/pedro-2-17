@@ -3,35 +3,33 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.util.Constants;
-import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.rowanmcalpin.nextftc.core.command.Command;
 import com.rowanmcalpin.nextftc.core.command.groups.ParallelGroup;
 import com.rowanmcalpin.nextftc.core.command.groups.SequentialGroup;
+import com.rowanmcalpin.nextftc.core.command.utility.delays.Delay;
 import com.rowanmcalpin.nextftc.pedro.FollowPath;
 import com.rowanmcalpin.nextftc.pedro.PedroOpMode;
-
 import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
-import sigmaCode.sigmaSubsystems.Claw;
 import sigmaCode.sigmaSubsystems.LVWrist;
 import sigmaCode.sigmaSubsystems.RVWrist;
 import sigmaCode.sigmaSubsystems.Slides;
 import sigmaCode.sigmaSubsystems.VerticalClaw;
 
-@Autonomous(name = "pedro generated auto", group = "Examples")
-public class noRizzAutonGen extends PedroOpMode {
-    public noRizzAutonGen() {
-        super(Slides.INSTANCE, Claw.INSTANCE, LVWrist.INSTANCE, RVWrist.INSTANCE);
+@Autonomous(name = "2 pedro generated auto", group = "1")
+public class autonPath extends PedroOpMode {
+    public autonPath() {
+        super(Slides.INSTANCE, VerticalClaw.INSTANCE, LVWrist.INSTANCE, RVWrist.INSTANCE);
     }
     private final Pose startPose = new Pose(7.2, 63, Math.toRadians(0));
     //todo: change above value to desired starting pose
-    private PathChain line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11, line12, line13;
-
+    private PathChain line1;//, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11, line12, line13;
     //todo: add as many lines as are used in the path
     //todo: go to GeneratedPaths file
     public void buildPaths() {
         line1 = GeneratedPaths.line1;
+        /*
         line2 = GeneratedPaths.line2;
         line3 = GeneratedPaths.line3;
         line4 = GeneratedPaths.line4;
@@ -43,36 +41,53 @@ public class noRizzAutonGen extends PedroOpMode {
         line10 = GeneratedPaths.line10;
         line11 = GeneratedPaths.line11;
         line12 = GeneratedPaths.line12;
-        line13 = GeneratedPaths.line13;
+        line13 = GeneratedPaths.line13;*/
     }
-    public Command sigmaAuto(){
+    public Command auton(){
         return new SequentialGroup(
                 new ParallelGroup(
-                        new FollowPath(line1),
+                        new SequentialGroup(
+                                new Delay(.8),
+                                new FollowPath(line1)
+                        ),
                         Slides.INSTANCE.half()
-                ), Slides.INSTANCE.up(),
+                ),
+                new Delay(2),
+                Slides.INSTANCE.up(),
                 new ParallelGroup(
                         Slides.INSTANCE.down(),
-                        new FollowPath(line2),
-                        Claw.INSTANCE.open(),
+                        //new FollowPath(line2),
+                        VerticalClaw.INSTANCE.open(),
                         LVWrist.INSTANCE.wristBack(),
                         RVWrist.INSTANCE.wristBack()
-                ), new FollowPath(line3)
+                )
+                //new FollowPath(line3)
         );
     }
+
+    public void onUpdate(){
+        telemetry.addData("slide pos", Slides.INSTANCE.lift.getCurrentPosition());
+        telemetry.addData("target", Slides.INSTANCE.controller.getTarget());
+        telemetry.update();
+    }
+
+    public Command liftTest(){
+        return new SequentialGroup(
+                Slides.INSTANCE.half(),
+                Slides.INSTANCE.up()
+        );
+    }
+
     @Override
     public void onInit() {
-        Claw.INSTANCE.close();
         Constants.setConstants(FConstants.class, LConstants.class);
         follower = new Follower(hardwareMap);
         follower.setStartingPose(startPose);
+        VerticalClaw.INSTANCE.close().invoke();
         buildPaths();
     }
     @Override
     public void onStartButtonPressed() {
-        sigmaAuto().invoke();
-
+        auton().invoke();
     }
-
-
 }

@@ -12,24 +12,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp(name="sigma 7.0")
 public class TwoPlayerDrive extends LinearOpMode{
     //define motors and variables here
-    private DcMotor rightFront; //rightFront is the right front wheel of the bot
-    private DcMotor leftFront;
-    private DcMotor rightBack;
-    private DcMotor leftBack;
-    private DcMotor vSlide;
-    private DcMotor hSlide;
-    private Servo rhWrist;
-    private Servo lhWrist;
-    private Servo lvWrist;
-    private Servo rvWrist;
-    private Servo vClaw;
-    private Servo hClaw;
-    private Servo clawSpinner;
-    private Servo sampleclaw;
+    private DcMotor rightFront, leftFront, rightBack, leftBack, vSlide, hSlide;
+    private Servo rhWrist, lhWrist, lvWrist, rvWrist, vClaw, hClaw, clawSpinner, sampleclaw;
     private IMU imu;
     private boolean hClawOpen = false;
     private boolean vClawOpen = false;
-
     private boolean sampleclawOpen = false;
     private boolean spin = false;
 

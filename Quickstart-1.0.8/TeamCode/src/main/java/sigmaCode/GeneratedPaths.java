@@ -15,7 +15,7 @@ public class GeneratedPaths {
             .addPath(
                     new BezierLine(
                             new Point(7.200, 65.000, Point.CARTESIAN),
-                            new Point(32.000, 65.000, Point.CARTESIAN)
+                            new Point(29.000, 65.000, Point.CARTESIAN)
                     )
             )
             .setConstantHeadingInterpolation(Math.toRadians(0))
@@ -24,10 +24,10 @@ public class GeneratedPaths {
     public static PathChain line2 = builder
             .addPath(
                     new BezierCurve(
-                            new Point(32.000, 65.000, Point.CARTESIAN),
+                            new Point(29.000, 65.000, Point.CARTESIAN),
                             new Point(1.669, 25.272, Point.CARTESIAN),
                             new Point(115.152, 24.556 , Point.CARTESIAN),
-                            new Point(20.000, 25, Point.CARTESIAN)
+                            new Point(25.000, 25, Point.CARTESIAN)
                     )
             )
             .setConstantHeadingInterpolation(Math.toRadians(0))
